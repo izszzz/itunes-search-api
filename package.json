@@ -1,19 +1,20 @@
 {
-  "name": "itunes-search-api",
+  "name": "@izszzz/itunes-search-api",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "npm run clean ; tsc",
-    "prepare": "npm run build"
+    "build": "npm run clean ; tsc"
   },
   "files": [
     "dist"
   ],
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "itunes"
+  ],
+  "author": "izszzz",
+  "license": "MIT",
   "devDependencies": {
     "typescript": "^4.9.5"
   },
