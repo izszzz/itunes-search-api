@@ -3,5 +3,5 @@
 # Installation
 
 ```
-npm install @izszzz/itunes-search-api
+npm i @izszzz/itunes-search-api
 ```
