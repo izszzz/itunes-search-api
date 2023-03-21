@@ -6,17 +6,36 @@ export type ItunesArtwork = Record<
 >;
 
 export interface ItunesMusic extends ItunesArtwork {
+  artistId: number;
   artistName: string;
   artistViewUrl: string;
-  collectionArtistId: number;
-  collectionArtistViewUrl: string;
   collectionCensoredName: string;
-  trackId: number;
-  trackViewUrl: string;
-  trackCensoredName: string;
+  collectionExplicitness: string;
+  collectionId: number;
+  collectionName: string;
+  collectionPrice: number;
+  collectionArtistId: number;
+  collectionViewUrl: string;
+  collectionArtistViewUrl: string;
+  country: string;
+  currency: string;
+  discCount: number;
+  discNumber: number;
+  isStreamable: true;
+  kind: string;
   previewUrl: string;
-  viewURL: string;
+  primaryGenreName: string;
   releaseDate: string;
+  trackCensoredName: string;
+  trackCount: number;
+  trackExplicitness: string;
+  trackId: number;
+  trackName: string;
+  trackNumber: number;
+  trackPrice: number;
+  trackTimeMillis: number;
+  trackViewUrl: string;
+  wrapperType: string;
 }
 export interface ItunesArtist {
   amgArtistId: number;
@@ -24,11 +43,11 @@ export interface ItunesArtist {
   artistLinkUrl: string;
   artistName: string;
   artistType: "Artist";
-  primaryGenreId: 21;
+  primaryGenreId: number;
+  primaryGenreName: string;
   wrapperType: string;
 }
 export interface ItunesAlbum extends ItunesArtwork {
-  amgArtistId: number;
   artistId: number;
   artistName: string;
   artistViewUrl: string;
@@ -37,12 +56,12 @@ export interface ItunesAlbum extends ItunesArtwork {
   collectionId: number;
   collectionName: string;
   collectionPrice: number;
-  collectionType: "Album";
+  collectionType: string;
   collectionViewUrl: string;
   copyright: string;
-  country: "USA";
-  currency: "USD";
-  primaryGenreName: "Pop";
+  country: string;
+  currency: string;
+  primaryGenreName: string;
   releaseDate: string;
   trackCount: number;
   wrapperType: "collection";
