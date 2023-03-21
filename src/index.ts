@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios-jsonp-pro";
+import axios, { AxiosRequestConfig } from "axios";
 
 export type ItunesArtwork = Record<
   "artworkUrl30" | "artworkUrl60" | "artworkUrl100",
@@ -66,19 +66,18 @@ export interface LookupParams extends BaseParams, BaseLookupParams {}
 export interface SearchParams extends BaseParams, BaseSearchParams {}
 
 export class Itunes {
-  jsonp = <T>(path: string, config: AxiosRequestConfig) =>
+  get = <T>(path: string, config: AxiosRequestConfig) =>
     axios
       .create({ baseURL: "https://itunes.apple.com" })
-      .jsonp<null, ItunesResponse<T>>(path, config);
-
-  lookup = <T>(params: LookupParams) => this.jsonp<T>("/lookup", { params });
+      .get<null, ItunesResponse<T>>(path, config);
+  lookup = <T>(params: LookupParams) => this.get<T>("/lookup", { params });
   lookupArtist = ({ id }: BaseLookupParams) =>
     this.lookup<ItunesArtist>({ id, entity: "musicArtist" });
   lookupAlbum = ({ id }: BaseLookupParams) =>
     this.lookup<ItunesAlbum>({ id, entity: "album" });
   lookupMusic = ({ id }: BaseLookupParams) =>
     this.lookup<ItunesMusic>({ id, entity: "song" });
-  search = <T>(params: SearchParams) => this.jsonp<T>("/search", { params });
+  search = <T>(params: SearchParams) => this.get<T>("/search", { params });
   searchMusics = (params: BaseSearchParams) =>
     this.search<ItunesMusic>({ ...params, entity: "song" });
   searchArtists = (params: BaseSearchParams) =>
