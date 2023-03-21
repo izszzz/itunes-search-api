@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 export type ItunesArtwork = Record<
   "artworkUrl30" | "artworkUrl60" | "artworkUrl100",
@@ -69,7 +69,7 @@ export class Itunes {
   get = <T>(path: string, config: AxiosRequestConfig) =>
     axios
       .create({ baseURL: "https://itunes.apple.com" })
-      .get<null, ItunesResponse<T>>(path, config);
+      .get<null, AxiosResponse<ItunesResponse<T>>>(path, config);
   lookup = <T>(params: LookupParams) => this.get<T>("/lookup", { params });
   lookupArtist = ({ id }: BaseLookupParams) =>
     this.lookup<ItunesArtist>({ id, entity: "musicArtist" });
