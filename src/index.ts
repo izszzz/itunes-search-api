@@ -72,31 +72,34 @@ export interface ItunesResponse<T> {
 }
 export interface BaseParams {
   entity: "musicArtist" | "album" | "song";
+  lang?: "en_us" | "ja_jp";
 }
-export interface BaseSearchParams {
+export interface BaseSearchParams extends BaseParams {
   term: string;
   limit: number;
   offset: number;
 }
-export interface BaseLookupParams {
+export interface BaseLookupParams extends BaseParams {
   id: number | string;
 }
-export interface LookupParams extends BaseParams, BaseLookupParams {}
-export interface SearchParams extends BaseParams, BaseSearchParams {}
+export interface LookupParams extends BaseLookupParams {}
+export interface SearchParams extends BaseSearchParams {}
 
 export class Itunes {
   get = <T>(path: string, config: AxiosRequestConfig) =>
     axios
       .create({ baseURL: "https://itunes.apple.com" })
       .get<null, AxiosResponse<ItunesResponse<T>>>(path, config);
-  lookup = <T>(params: LookupParams) => this.get<T>("/lookup", { params });
-  lookupArtist = ({ id }: BaseLookupParams) =>
-    this.lookup<ItunesArtist>({ id, entity: "musicArtist" });
-  lookupAlbum = ({ id }: BaseLookupParams) =>
-    this.lookup<ItunesAlbum>({ id, entity: "album" });
-  lookupMusic = ({ id }: BaseLookupParams) =>
-    this.lookup<ItunesMusic>({ id, entity: "song" });
-  search = <T>(params: SearchParams) => this.get<T>("/search", { params });
+  lookup = <T>({ lang = "en_us", ...params }: LookupParams) =>
+    this.get<T>("/lookup", { params: { ...params, lang } });
+  lookupArtist = (params: BaseLookupParams) =>
+    this.lookup<ItunesArtist>({ ...params, entity: "musicArtist" });
+  lookupAlbum = (params: BaseLookupParams) =>
+    this.lookup<ItunesAlbum>({ ...params, entity: "album" });
+  lookupMusic = (params: BaseLookupParams) =>
+    this.lookup<ItunesMusic>({ ...params, entity: "song" });
+  search = <T>({ lang = "en_us", ...params }: SearchParams) =>
+    this.get<T>("/search", { params });
   searchMusics = (params: BaseSearchParams) =>
     this.search<ItunesMusic>({ ...params, entity: "song" });
   searchArtists = (params: BaseSearchParams) =>
