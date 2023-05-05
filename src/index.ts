@@ -92,18 +92,18 @@ export class Itunes {
       .get<null, AxiosResponse<ItunesResponse<T>>>(path, config);
   lookup = <T>({ lang = "en_us", ...params }: LookupParams) =>
     this.get<T>("/lookup", { params: { ...params, lang } });
-  lookupArtist = (params: BaseLookupParams) =>
+  lookupArtist = (params: Omit<BaseLookupParams, "entity">) =>
     this.lookup<ItunesArtist>({ ...params, entity: "musicArtist" });
-  lookupAlbum = (params: BaseLookupParams) =>
+  lookupAlbum = (params: Omit<BaseLookupParams, "entity">) =>
     this.lookup<ItunesAlbum>({ ...params, entity: "album" });
-  lookupMusic = (params: BaseLookupParams) =>
+  lookupMusic = (params: Omit<BaseLookupParams, "entity">) =>
     this.lookup<ItunesMusic>({ ...params, entity: "song" });
   search = <T>({ lang = "en_us", ...params }: SearchParams) =>
     this.get<T>("/search", { params });
-  searchMusics = (params: BaseSearchParams) =>
+  searchMusics = (params: Omit<BaseSearchParams, "entity">) =>
     this.search<ItunesMusic>({ ...params, entity: "song" });
-  searchArtists = (params: BaseSearchParams) =>
+  searchArtists = (params: Omit<BaseSearchParams, "entity">) =>
     this.search<ItunesArtist>({ ...params, entity: "musicArtist" });
-  searchAlbums = (params: BaseSearchParams) =>
+  searchAlbums = (params: Omit<BaseSearchParams, "entity">) =>
     this.search<ItunesAlbum>({ ...params, entity: "album" });
 }
